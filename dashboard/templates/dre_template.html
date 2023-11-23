@@ -1,0 +1,124 @@
+{% load bootstrap4 %}
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Pesquisa Orçamento</title>
+    <link rel="stylesheet" href="{% static 'assets/css/tabelas.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% comment %} <script defer src="{% static 'assets/js/script_tabelas.js' %}"></script> {% endcomment %}
+    <script defer src="{% static 'assets/js/delete.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        .centered-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+        .centered-text {
+            text-align: center;
+            color: red;
+            font-size: 24px;
+        }
+
+        @media print {
+            .noprint {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <p class="centered-text">Relatório Financeiro Lucros x Impostos</p>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Identificador</th>
+                    <th>Impostos</th>
+                    <th>Lucro</th>
+                    <th>Valor Sugerido</th>
+                    <th>Custo Hora</th>
+                    <th>Status</th>
+                    <th class="noprint"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for orcamento_item in orcamento %}
+                    <tr>
+                        <td>{{ orcamento_item.orcamento_id }}</td>
+                        <td>{{ orcamento_item.valor_tributos }}</td>
+                        <td>{{ orcamento_item.valor_lucro }}</td>
+                        <td>{{ orcamento_item.valor_sugerido }}</td>
+                        <td>{{ orcamento_item.custo_hora }}</td>
+                        <td>{{ orcamento_item.status }}</td>
+                        <td class="noprint">
+                            <button class="btn btn-primary" onclick="window.print();return false;">
+                                <i class="bi bi-printer"></i>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <div class="centered-chart" style="width: 400px; height: 400px;">
+            <canvas id="myPieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('myPieChart').getContext('2d');
+
+        var totalImpostos = 0;
+        var totalLucro = 0;
+
+        {% for orcamento_item in orcamento %}
+            totalImpostos += {{ orcamento_item.valor_tributos }};
+            totalLucro += {{ orcamento_item.valor_lucro }};
+        {% endfor %}
+
+        var data = {
+            labels: ['Impostos', 'Lucro'],
+            datasets: [{
+                data: [totalImpostos, totalLucro],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(75, 192, 192, 0.6)' 
+                ]
+            }]
+        };
+
+        for (var i = 0; i < data.datasets[0].data.length; i++) {
+            if (i === 0) {
+                data.datasets[0].backgroundColor[i] = 'rgba(255, 99, 132, 0.6)'; 
+            } else {
+                data.datasets[0].backgroundColor[i] = 'rgba(75, 192, 192, 0.6)';
+            }
+        }
+
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: 'Impostos vs. Lucro'
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

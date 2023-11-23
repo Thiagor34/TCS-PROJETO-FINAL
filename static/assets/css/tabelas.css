@@ -1,0 +1,95 @@
+table {
+    width: 95%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+}
+
+.tab-emp {
+    width: 95%;
+    margin: 40px auto;
+    border-collapse: collapse;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+}
+
+.tab-emp-enc {
+    width: 500px;
+    max-width: 500px;
+    min-width: 500px;
+    margin: 40px auto;
+    border-collapse: collapse;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    overflow: auto;
+}
+
+thead>tr {
+    background-color: rgb(37, 31, 77);
+    color: white;
+}
+
+tr>th,
+tr>td {
+    padding: 7px 7px;
+}
+
+tbody>tr:nth-last-of-type(even) {
+    background-color: rgba(0, 0, 0, 0.100);
+}
+
+tbody>tr:last-of-type {
+    border-bottom: 5px solid rgb(37, 31, 77);
+}
+
+.pagination {
+    display: flex;
+    width: 400px;
+    margin: 5px auto;
+    gap: 5px;
+    justify-content: center;
+    position: static;
+    bottom: 0;
+}
+
+.pagination>a {
+    background-color: rgb(37, 31, 77);
+    padding: 10px 15px;
+    color: white;
+    border-radius: 10px;
+}
+
+
+.bi-pencil-fill {
+    font-size: 20px;
+    color: green;
+    font-weight: bolder;
+    padding-right: 10px;
+}
+
+.bi-trash-fill {
+    font-size: 20px;
+    color: rgb(161, 0, 0);
+    font-weight: bolder;
+}
+
+.bi-x-circle-fill {
+    font-size: 20px;
+    color: rgb(161, 0, 0);
+    font-weight: bolder;
+    margin-right: 8px;
+}
+
+.bi-check-circle-fill {
+    font-size: 20px;
+    color: #0B5ED7;
+    font-weight: bolder;
+    margin-right: 8px;
+}
+
+a {
+    text-decoration: none;
+}
